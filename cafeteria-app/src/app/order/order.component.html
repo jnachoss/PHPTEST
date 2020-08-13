@@ -1,0 +1,173 @@
+<div class="order-view">
+    <div class="row order-header" >
+        <div class="col-md-2" style="color: white;">
+            <br>
+            <h3>CoffeShop</h3>
+        </div>
+    </div>
+    <div class="row" style="margin: 1px;" cdkDropListGroup>
+        <div class="col-md-3">
+            <div class="card order-state">
+                <div class="card-header">
+                    <h4>COLA</h4>
+                </div>
+                <div class="card-body list" cdkDropList
+                #colaList="cdkDropList"
+                [cdkDropListData]="colaOrders"
+                (cdkDropListDropped)="onDrop($event, 'cola')">
+                    <div class="card order-detail" *ngFor="let item of colaOrders" cdkDrag (click)="openModal(template, item)">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>{{item.number}}</p>
+                            </div>
+                            <div class="col-md-10" style="text-align: right;">
+                                <span>Ignacio</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span *ngFor="let p of item.order_detail">
+                                    {{p.quantity}} {{p.product.name}},
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer" >
+                    <button type="button" class="btn btn-success" (click)="newOrder()">Nueva Orden</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card order-state">
+                <div class="card-header">
+                    <h4>PREPARACIÓN</h4>
+                </div>
+                <div class="card-body list" cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="prepOrders"
+                (cdkDropListDropped)="onDrop($event, 'preparacion')">
+                    <div class="card order-detail" *ngFor="let item of prepOrders" cdkDrag (click)="openModal(template, item)">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>{{item.number}}</p>
+                            </div>
+                            <div class="col-md-10" style="text-align: right;">
+                                <span>Ignacio</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span *ngFor="let p of item.order_detail">
+                                    {{p.quantity}} {{p.product.name}},
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card order-state">
+                <div class="card-header">
+                    <h4>FINALIZADO</h4>
+                </div>
+                <div class="card-body list" cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="finOrders"
+                (cdkDropListDropped)="onDrop($event, 'finalizado')">
+                    <div class="card order-detail" *ngFor="let item of finOrders" cdkDrag (click)="openModal(template, item)">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>{{item.number}}</p>
+                            </div>
+                            <div class="col-md-10" style="text-align: right;">
+                                <span>Ignacio</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span *ngFor="let p of item.order_detail">
+                                    {{p.quantity}} {{p.product.name}},
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card order-state">
+                <div class="card-header">
+                    <h4>ENTREGADO</h4>
+                </div>
+                <div class="card-body list" cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="entOrders"
+                (cdkDropListDropped)="onDrop($event, 'entregado')">
+                    <div class="card order-detail" *ngFor="let item of entOrders" cdkDrag (click)="openModal(template, item)">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p>{{item.number}}</p>
+                            </div>
+                            <div class="col-md-10" style="text-align: right;">
+                                <span>Ignacio</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <span *ngFor="let p of item.order_detail">
+                                    {{p.quantity}} {{p.product.name}},
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template >
+    <div style="background-color: rgb(22, 22, 22);">
+        
+        <div class="modal-body" style="color: white;">
+            <div class="row">
+                <div class="col-md-4">
+                    <span>Orden No. {{currentOrder.id}}</span>
+                </div>
+                <div class="col-md-8" style="text-align: right;">
+                    <span>Ignacio</span>
+                </div>
+            </div>
+            <hr>
+            <div class="row order-detail-info" *ngFor="let item of currentOrder.order_detail">
+                <div class="col-md-3">
+                    <img src="../../assets/img/late.jpg" alt="..." class="img-thumbnail">
+                </div>
+                <div class="col-md-6">
+                    <h5>{{item.product.name}} <span class="badge badge-success">{{item.quantity}}</span></h5>
+                    <p>{{item.comment}}</p>
+                </div>
+                <div class="col-md-2">
+                    <h2><span class="badge badge-success">{{item.product.cost}}</span></h2>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>TOTAL</h5>
+                    <h5 style="color: #FFC312;">{{currentOrder.total}}</h5>
+                </div>
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</ng-template>

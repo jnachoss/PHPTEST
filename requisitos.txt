@@ -1,0 +1,25 @@
+Coffee shop
+
+login (no funcional) 
+
+entidades:
+user:
+name
+email
+password
+
+products
+name
+cost
+
+order:
+state
+number
+user
+total
+
+orderDetails
+order
+product
+comments
+quantity
